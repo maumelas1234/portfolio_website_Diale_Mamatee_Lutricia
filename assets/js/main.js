@@ -241,3 +241,114 @@ themeButton.addEventListener("click", () => {
   localStorage.setItem("selected-theme", getCurrentTheme());
   localStorage.setItem("selected-icon", getCurrentIcon());
 });
+
+
+const skillsForm = document.getElementById("skills-form");
+const skillNameInput = document.getElementById("skill-name");
+const skillPercentageInput = document.getElementById("skill-percentage");
+const skillsList = document.getElementById("skills-list");
+
+// Initial skills data
+let skills = [
+    { name: "HTML", percentage: 90 },
+    { name: "CSS", percentage: 80 },
+    { name: "JavaScript", percentage: 70 },
+    { name: "React", percentage: 60 },
+    { name: "PHP", percentage: 80 },
+    { name: "Node.js", percentage: 70 },
+    { name: "Python", percentage: 95 },
+];
+
+let editIndex = -1; // Variable to track which skill is being edited
+
+// Function to render skills
+function renderSkills() {
+    skillsList.innerHTML = ""; // Clear the list
+    skills.forEach((skill, index) => {
+        const skillItem = document.createElement("div");
+        skillItem.className = "skills__item";
+        skillItem.innerHTML = `
+            <div>
+                <h3>${skill.name}</h3>
+                <span>${skill.percentage}%</span>
+                <div class="skills__bar">
+                    <span class="skills__percentage" style="width: ${skill.percentage}%;"></span>
+                </div>
+            </div>
+            <div>
+                <button onclick="editSkill(${index})">Edit</button>
+                <button onclick="deleteSkill(${index})">Delete</button>
+            </div>
+        `;
+        skillsList.appendChild(skillItem);
+    });
+}
+
+// Add or update skill
+skillsForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const skillName = skillNameInput.value.trim();
+    const skillPercentage = Number(skillPercentageInput.value);
+
+    // Check for valid input
+    if (skillName === "" || isNaN(skillPercentage) || skillPercentage < 0 || skillPercentage > 100) {
+        alert("Please enter a valid skill name and percentage between 0 and 100.");
+        return;
+    }
+
+    // Check if editing an existing skill
+    if (editIndex > -1) {
+        skills[editIndex] = { name: skillName, percentage: skillPercentage }; // Update existing skill
+        editIndex = -1; // Reset edit index
+    } else {
+        skills.push({ name: skillName, percentage: skillPercentage }); // Add new skill
+    }
+
+    // Reset form
+    skillNameInput.value = "";
+    skillPercentageInput.value = "";
+    renderSkills(); // Render updated skills list
+});
+
+// Edit skill
+function editSkill(index) {
+    const skill = skills[index];
+    skillNameInput.value = skill.name; // Populate the input fields with skill data
+    skillPercentageInput.value = skill.percentage;
+    editIndex = index; // Set edit index to track which skill is being edited
+}
+
+// Delete skill
+function deleteSkill(index) {
+    skills.splice(index, 1); // Remove skill from the array
+    renderSkills(); // Render updated skills list
+}
+
+// Initial rendering
+renderSkills();
+
+
+
+// Function to render skills
+function renderSkills() {
+  skillsList.innerHTML = ""; // Clear the list
+  skills.forEach((skill, index) => {
+      const skillItem = document.createElement("div");
+      skillItem.className = "skills__item";
+      skillItem.innerHTML = `
+          <div>
+              <h3>${skill.name}</h3>
+              <span>${skill.percentage}%</span>
+              <div class="skills__bar">
+                  <span class="skills__percentage" style="width: ${skill.percentage}%;"></span>
+              </div>
+          </div>
+          <div>
+              <button class="edit-button" onclick="editSkill(${index})">Edit</button>
+              <button class="delete-button" onclick="deleteSkill(${index})">Delete</button>
+          </div>
+      `;
+      skillsList.appendChild(skillItem);
+  });
+}

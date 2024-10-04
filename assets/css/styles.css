@@ -1243,7 +1243,7 @@ img{
    }
 }
 
- For large devices 
+ /* For large devices 
 @media screen and (max-width: 1024px){
    .header,
    .main,
@@ -1283,5 +1283,52 @@ img{
    }
    .contact__inputs{
       grid-template-columns: repeat(2, 1fr);
-   }
-} */
+   } */
+
+
+   /* Button styles */
+button {
+   border: none;
+   border-radius: 5px;
+   padding: 10px 15px;
+   cursor: pointer;
+   font-size: 16px;
+   transition: background-color 0.3s, transform 0.2s;
+   margin-right: 10px; /* Space between buttons */
+}
+
+/* Style for Edit button */
+.edit-button {
+   background-color: #ffc107; /* Yellow color */
+   color: white;
+}
+
+/* Hover effect for Edit button */
+.edit-button:hover {
+   background-color: #e0a800; /* Darker shade for hover */
+   transform: translateY(-1px); /* Slight lift effect */
+}
+
+/* Style for Delete button */
+.delete-button {
+   background-color: #dc3545; /* Red color */
+   color: white;
+}
+
+/* Hover effect for Delete button */
+.delete-button:hover {
+   background-color: #c82333; /* Darker shade for hover */
+   transform: translateY(-1px); /* Slight lift effect */
+}
+
+/* Add button styles */
+.add-button {
+   background-color: #28a745; /* Green color */
+   color: white;
+}
+
+/* Hover effect for Add button */
+.add-button:hover {
+   background-color: #218838; /* Darker shade for hover */
+   transform: translateY(-1px); /* Slight lift effect */
+}
